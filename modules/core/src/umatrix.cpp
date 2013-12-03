@@ -703,9 +703,9 @@ UMat& UMat::setTo(InputArray _value, InputArray _mask)
     return *this;
 }
 
-UMat& UMat::operator = (const Scalar&)
+UMat& UMat::operator = (const Scalar& s)
 {
-    CV_Error(Error::StsNotImplemented, "");
+    setTo(s);
     return *this;
 }
 

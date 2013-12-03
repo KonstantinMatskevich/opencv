@@ -84,11 +84,11 @@ CORE_TEST_P(UMatBasicTests, createUMat)
     {
         ua = UMat(ua, roi);
     }
-    int dims = randomInt(2,CV_MAX_DIM);
+    int dims = randomInt(2,6);
     int _sz[CV_MAX_DIM];
     for( int i = 0; i<dims; i++)
     {
-        _sz[i] = randomInt(1,100);
+        _sz[i] = randomInt(1,50);
     }
     int *sz = _sz;
     int new_depth = randomInt(CV_8S, CV_64F);
@@ -168,12 +168,12 @@ CORE_TEST_P(UMatBasicTests, base)
         ASSERT_EQ(ua.isSubmatrix(), false);
     }
 
-    int dims = randomInt(2,CV_MAX_DIM);
+    int dims = randomInt(2,6);
     int sz[CV_MAX_DIM];
     size_t total = 1;
     for(int i = 0; i<dims; i++)
     {
-        sz[i] = randomInt(1,345);
+        sz[i] = randomInt(1,45);
         total *= (size_t)sz[i];
     }
     int new_type = CV_MAKE_TYPE(randomInt(CV_8S,CV_64F),randomInt(1,4));
@@ -292,6 +292,7 @@ CORE_TEST_P(UMatTestReshape, reshape)
         ub.copyTo(tmp);
         if(useRoi)
         {
+            // need to be fixed
             EXPECT_MAT_NEAR(tmp.reshape(1,1), roi_a.reshape(1,1), 0);
         }
         else
@@ -349,7 +350,7 @@ CORE_TEST_P(UMatTestReshape, reshape)
     }
 }
 
-INSTANTIATE_TEST_CASE_P(Umat, UMatTestReshape, Combine(UMAT_TEST_DEPTH, UMAT_TEST_CHANNELS, UMAT_TEST_SIZES, Values(true,false) ));
+INSTANTIATE_TEST_CASE_P(Umat, UMatTestReshape, Combine(UMAT_TEST_DEPTH, UMAT_TEST_CHANNELS, UMAT_TEST_SIZES, Bool() ));
     //Values(CV_32S), Values(1), Values(cv::Size(11,11)), Values(true, false) ) );
 
 PARAM_TEST_CASE(UMatTestRoi, int, int, Size)
@@ -573,8 +574,8 @@ CORE_TEST_P(UMatTestUMatOperations, dotUMat)
     b = randomMat(size, type, -100, 100);
     a.copyTo(ua);
     b.copyTo(ub);
-    //ASSERT_EQ(ua.dot(ub), a.dot(b));
+//    ASSERT_EQ(ua.dot(ub), a.dot(b));
 }
 
-INSTANTIATE_TEST_CASE_P(Umat, UMatTestUMatOperations, Combine(UMAT_TEST_DEPTH, UMAT_TEST_CHANNELS, UMAT_TEST_SIZES, Values(true,false) ));
+INSTANTIATE_TEST_CASE_P(Umat, UMatTestUMatOperations, Combine(UMAT_TEST_DEPTH, UMAT_TEST_CHANNELS, UMAT_TEST_SIZES, Bool() ));
     //Values(CV_32S), Values(1), Values(cv::Size(11,11)), Values(true, false) ) );
