@@ -224,7 +224,7 @@ CORE_TEST_P(UMatBasicTests, copyTo)
     }
 }
 
-CORE_TEST_P(UMatBasicTests, DISABLED_GetUMat)
+CORE_TEST_P(UMatBasicTests, GetUMat)
 {
     if(useRoi)
     {
