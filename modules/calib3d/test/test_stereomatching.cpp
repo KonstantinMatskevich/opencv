@@ -785,3 +785,19 @@ protected:
 
 TEST(Calib3d_StereoBM, regression) { CV_StereoBMTest test; test.safe_run(); }
 TEST(Calib3d_StereoSGBM, regression) { CV_StereoSGBMTest test; test.safe_run(); }
+
+TEST(StereoBM, CheckSSE)
+{
+    Mat left, right, disp_gold, disp_sse;
+    left = imread("C:/opencv_extra/testdata/gpu/stereobm/aloe-L.png", cv::IMREAD_GRAYSCALE);
+    right = imread("C:/opencv_extra/testdata/gpu/stereobm/aloe-R.png", cv::IMREAD_GRAYSCALE);
+
+    Ptr<StereoBM> bm = createStereoBM( 128, 11 );
+    bm->compute( left, right, disp_gold );
+    setUseOptimized(false);
+    bm->compute( left, right, disp_sse );
+    Mat t;
+    absdiff(disp_gold, disp_sse, t);
+    imshow("t", t*100);
+    waitKey(0);
+}

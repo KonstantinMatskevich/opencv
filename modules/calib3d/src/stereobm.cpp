@@ -866,6 +866,8 @@ public:
 
 #if CV_SSE2
         bool useShorts = params.preFilterCap <= 31 && params.SADWindowSize <= 21 && checkHardwareSupport(CV_CPU_SSE2);
+        if (useShorts) printf("with sse\n");
+        else printf("without sse\n");
 #else
         const bool useShorts = false;
 #endif
